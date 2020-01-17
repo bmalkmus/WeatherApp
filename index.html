@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 page-header">
+                <h1>Weather Dashboard</h1>
+
+            </div>   
+        </div>
+        <div class="row">
+            <div class="col-lg-4 card bg-light mb-3" style="max-width: 18rem;">
+                <h5 class="card-title">Search for a City:</h5>
+
+                <div class="input-group mb-3">
+                    <input type="search" placeholder="Enter City" aria-describedby="button-addon5" class="form-control" id="city-search">
+                    <div class="input-group-append">
+                      <button id="search" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    </div>   
+                </div>
+
+                <div class="container search-results card">
+                    <div class="card-body" id = "search-results">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-8">
+
+                <div class="row">
+                    <div class="col-lg-12 card" id ="current-info">
+                        <div class="card-body">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12" id = "5-day">
+                        <h4>5-Day Forecast:</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js" rel = "stylesheet"></script>
+</body>
+</html>
