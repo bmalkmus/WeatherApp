@@ -1,0 +1,12 @@
+.daily {
+    width: 15%;
+    background-color: dodgerblue;
+    float: left;
+    margin: 10px;
+    color: white;
+    border-radius: 5px;
+
+}
+.date{
+    font-weight: bold;
+}

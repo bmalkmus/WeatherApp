@@ -53,7 +53,9 @@ function successFunction(position) {
         
         $(forecast).each(function(){
             let dailyDiv = $("<div>")
-            let dateFC = moment(this.dt_txt, "YYYY-MM-DD hh:mm:ss").format("MM/DD/YY");
+            $(dailyDiv).addClass("daily");
+            let dateFC = $('<p>').text(moment(this.dt_txt, "YYYY-MM-DD hh:mm:ss").format("MM/DD/YY"));
+            $(dateFC).addClass("date")
             let Icon = $('<img>');
             Icon.attr("src", "http://openweathermap.org/img/wn/"+this.weather[0].icon+"@2x.png");
             let foreTemp = $('<p>').text("Temperature: " + this.main.temp + " &#8457;");
@@ -150,7 +152,9 @@ function forecastInfo(){
         
         $(forecast).each(function(){
             let dailyDiv = $("<div>")
-            let dateFC = moment(this.dt_txt, "YYYY-MM-DD hh:mm:ss").format("MM/DD/YY");
+            $(dailyDiv).addClass("daily")
+            let dateFC = $('<p>').text(moment(this.dt_txt, "YYYY-MM-DD hh:mm:ss").format("MM/DD/YY"));
+            $(dateFC).addClass("date")
             let Icon = $('<img>');
             Icon.attr("src", "http://openweathermap.org/img/wn/"+this.weather[0].icon+"@2x.png");
             let foreTemp = $('<p>').text("Temperature: " + this.main.temp + " &#8457;");
