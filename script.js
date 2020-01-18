@@ -21,7 +21,7 @@ function successFunction(position) {
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
     let loadCurrent = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&units=imperial&appid=945dc48fe14dbea48344eae4427f193e";
-
+    let CurrentUV = "http://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long
     $.ajax({
         url: loadCurrent,
         method: "GET"
@@ -30,16 +30,26 @@ function successFunction(position) {
         currentIcon = $('<img>')
           currentIcon.attr("src", "http://openweathermap.org/img/wn/"+response.weather[0].icon+"@2x.png");
           let currentSelection = $("<h3>").text("Current Location (" + date +")");
-          let temperature = $('<p>').text("Temperature: " + response.main.temp + " &#8457;")
+          let temperature = $('<p>').html("Temperature: " + response.main.temp + " &#8457;")
           let windspeed = $('<p>').text("Windspeed: " + response.wind.speed + " MPH")
             let humidity = $('<p>').text("Humidity:  " + response.main.humidity + "%")
             $('#current-info').empty();
+            currentSelection.append(currentIcon);
           $('#current-info').append(currentSelection);
           $('#current-info').append(temperature);
           $('#current-info').append(humidity);
           $('#current-info').append(windspeed);
+      })
+      $.ajax({
+        url: CurrentUV,
+        method: "GET"})
       
-})
+        .then(function(response) {
+         let uv = $('<p>').text("UV index: "+response.value);
+         $('#current-info').append(uv);
+        });
+
+    
     let loadFore = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+long+"&units=imperial&appid=945dc48fe14dbea48344eae4427f193e";
     $.ajax({
         url: loadFore,
@@ -58,14 +68,13 @@ function successFunction(position) {
             $(dateFC).addClass("date")
             let Icon = $('<img>');
             Icon.attr("src", "http://openweathermap.org/img/wn/"+this.weather[0].icon+"@2x.png");
-            let foreTemp = $('<p>').text("Temperature: " + this.main.temp + " &#8457;");
+            let foreTemp = $('<p>').html("Temperature: " + this.main.temp + " &#8457;");
             let foreHumidity = $('<p>').text("Humidity:  " + this.main.humidity + "%")
             $(dailyDiv).append(dateFC);
             $(dailyDiv).append(Icon);
             $(dailyDiv).append(foreTemp);
             $(dailyDiv).append(foreHumidity);
             $("#5-day").append(dailyDiv);
-
 
     })
 })
@@ -116,6 +125,10 @@ $("#search").click(function(){
   
 function currentInfo(){
     let queryURLCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch +"&units=imperial&appid=945dc48fe14dbea48344eae4427f193e"
+    let lat 
+    let long
+    let searchUV = "http://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long
+
     $.ajax({
         url: queryURLCurrent,
         method: "GET"
@@ -125,17 +138,32 @@ function currentInfo(){
           currentIcon = $('<img>')
           currentIcon.attr("src", "http://openweathermap.org/img/wn/"+response.weather[0].icon+"@2x.png");
           let currentSelection = $("<h3>").text(citySearch + " (" + date +")");
-          let temperature = $('<p>').text("Temperature: " + response.main.temp + " &#8457;")
+          let temperature = $('<p>').html("Temperature: " + response.main.temp + " &#8457;")
           let windspeed = $('<p>').text("Windspeed: " + response.wind.speed + " MPH")
             let humidity = $('<p>').text("Humidity:  " + response.main.humidity + "%")
             $('#current-info').empty();
+            currentSelection.append(currentIcon);
           $('#current-info').append(currentSelection);
           $('#current-info').append(temperature);
           $('#current-info').append(humidity);
           $('#current-info').append(windspeed);
+          lat = response.coord.lat;
+          long = response.coord.long;
 
 
-    })}
+
+    })
+
+
+    // $.ajax({
+    //   url: searchUV,
+    //   method: "GET"})
+    
+    //   .then(function(response) {
+    //    let uv = $('<p>').text("UV index: "+response.value);
+    //    $('#current-info').append(uv);
+    //   });
+  }
 
 function forecastInfo(){
         let queryURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + citySearch + "&units=imperial&appid=945dc48fe14dbea48344eae4427f193e"
@@ -157,7 +185,7 @@ function forecastInfo(){
             $(dateFC).addClass("date")
             let Icon = $('<img>');
             Icon.attr("src", "http://openweathermap.org/img/wn/"+this.weather[0].icon+"@2x.png");
-            let foreTemp = $('<p>').text("Temperature: " + this.main.temp + " &#8457;");
+            let foreTemp = $('<p>').html("Temperature: " + this.main.temp + " &#8457;");
             let foreHumidity = $('<p>').text("Humidity:  " + this.main.humidity + "%")
             $(dailyDiv).append(dateFC);
             $(dailyDiv).append(Icon);
