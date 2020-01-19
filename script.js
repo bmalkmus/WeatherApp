@@ -1,3 +1,5 @@
+$(document).ready(function(){
+
 let citySearch
 let searchHistory
 let historyList
@@ -14,9 +16,11 @@ if (!localStorage.getItem("city")) {
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 }
+
 else{
     alert("Geolocation is not allowed")
 } 
+
 function successFunction(position) {
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
@@ -110,19 +114,6 @@ historyList = $(historyList).slice(-10);
     }
 };
 
-
-$("#search").click(function(){
-    citySearch = $("#city-search").val()
-    localStorage.setItem('city', citySearch);
-    searchHistory = JSON.parse(localStorage.getItem("cities"));
-    searchHistory.push(citySearch);
-    localStorage.setItem('cities', JSON.stringify(searchHistory));
-    $("#5-day").empty();
-    listUpdate();
-    currentInfo();
-    forecastInfo();
-})
-  
 function currentInfo(){
     let queryURLCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch +"&units=imperial&appid=945dc48fe14dbea48344eae4427f193e"
     let lat 
@@ -164,39 +155,53 @@ function currentInfo(){
 
     })
 
-  }
-
-function forecastInfo(){
-        let queryURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + citySearch + "&units=imperial&appid=945dc48fe14dbea48344eae4427f193e"
-        $.ajax({
-        url: queryURLFiveDay,
-        method: "GET"
-      })
-      
-      .then(function(response) {
-        forecast = [];
-        for(i = 4; i < response.list.length; i+=8){
-            forecast.push(response.list[i])
-        }
+}
+  
+  function forecastInfo(){
+          let queryURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + citySearch + "&units=imperial&appid=945dc48fe14dbea48344eae4427f193e"
+          $.ajax({
+          url: queryURLFiveDay,
+          method: "GET"
+        })
         
-        $(forecast).each(function(){
-            let dailyDiv = $("<div>")
-            $(dailyDiv).addClass("daily")
-            let dateFC = $('<p>').text(moment(this.dt_txt, "YYYY-MM-DD hh:mm:ss").format("MM/DD/YY"));
-            $(dateFC).addClass("date")
-            let Icon = $('<img>');
-            Icon.attr("src", "http://openweathermap.org/img/wn/"+this.weather[0].icon+"@2x.png");
-            let foreTemp = $('<p>').html("Temperature: " + this.main.temp + " &#8457;");
-            let foreHumidity = $('<p>').text("Humidity:  " + this.main.humidity + "%")
-            $(dailyDiv).append(dateFC);
-            $(dailyDiv).append(Icon);
-            $(dailyDiv).append(foreTemp);
-            $(dailyDiv).append(foreHumidity);
-            $("#5-day").append(dailyDiv);
+        .then(function(response) {
+          forecast = [];
+          for(i = 4; i < response.list.length; i+=8){
+              forecast.push(response.list[i])
+          }
+          
+          $(forecast).each(function(){
+              let dailyDiv = $("<div>")
+              $(dailyDiv).addClass("daily")
+              let dateFC = $('<p>').text(moment(this.dt_txt, "YYYY-MM-DD hh:mm:ss").format("MM/DD/YY"));
+              $(dateFC).addClass("date")
+              let Icon = $('<img>');
+              Icon.attr("src", "http://openweathermap.org/img/wn/"+this.weather[0].icon+"@2x.png");
+              let foreTemp = $('<p>').html("Temperature: " + this.main.temp + " &#8457;");
+              let foreHumidity = $('<p>').text("Humidity:  " + this.main.humidity + "%")
+              $(dailyDiv).append(dateFC);
+              $(dailyDiv).append(Icon);
+              $(dailyDiv).append(foreTemp);
+              $(dailyDiv).append(foreHumidity);
+              $("#5-day").append(dailyDiv);
+  
+  
+      })
+  })
+}
 
-
-    })
+$("#search").click(function(){
+    citySearch = $("#city-search").val()
+    localStorage.setItem('city', citySearch);
+    searchHistory = JSON.parse(localStorage.getItem("cities"));
+    searchHistory.push(citySearch);
+    localStorage.setItem('cities', JSON.stringify(searchHistory));
+    $("#5-day").empty();
+    listUpdate();
+    currentInfo();
+    forecastInfo();
 })
-      }
 
 listUpdate();
+
+})
