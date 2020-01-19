@@ -147,22 +147,23 @@ function currentInfo(){
           $('#current-info').append(temperature);
           $('#current-info').append(humidity);
           $('#current-info').append(windspeed);
+          
           lat = response.coord.lat;
-          long = response.coord.long;
+          long = response.coord.lon;
 
+          let searchUV = "http://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long;
 
+          $.ajax({
+            url: searchUV,
+            method: "GET"})
+          
+            .then(function(response) {
+             let uv = $('<p>').text("UV index: "+response.value);
+             $('#current-info').append(uv);
+            });
 
     })
 
-
-    // $.ajax({
-    //   url: searchUV,
-    //   method: "GET"})
-    
-    //   .then(function(response) {
-    //    let uv = $('<p>').text("UV index: "+response.value);
-    //    $('#current-info').append(uv);
-    //   });
   }
 
 function forecastInfo(){
