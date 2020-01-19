@@ -5,6 +5,8 @@
     margin: 10px;
     color: white;
     border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
 
 }
 .date{
