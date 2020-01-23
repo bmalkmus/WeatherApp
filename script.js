@@ -110,7 +110,7 @@ $('#search-results').empty();
 historyList = JSON.parse(localStorage.getItem("cities"));
 historyList = $(historyList).slice(-10);
     for (i = 0; i < historyList.length; i++){
-        $('#search-results').prepend(historyList[i]+"<hr>");
+        $('#search-results').prepend('<p class = "historyList">'+historyList[i]+"</p> <hr>");
     }
 };
 
@@ -200,6 +200,14 @@ $("#search").click(function(){
     listUpdate();
     currentInfo();
     forecastInfo();
+})
+
+$("#search-results").on('click',".historyList", function(){
+  citySearch = $(this).text();
+  $('#5-day').empty();
+  currentInfo();
+  forecastInfo();
+  
 })
 
 listUpdate();
