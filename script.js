@@ -118,7 +118,7 @@ function currentInfo(){
     let queryURLCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch +"&units=imperial&appid=945dc48fe14dbea48344eae4427f193e"
     let lat 
     let long
-    let searchUV = "http://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long
+    // let searchUV = "https://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long
 
     $.ajax({
         url: queryURLCurrent,
@@ -142,7 +142,7 @@ function currentInfo(){
           lat = response.coord.lat;
           long = response.coord.lon;
 
-          let searchUV = "http://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long;
+          let searchUV = "https://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long;
 
           $.ajax({
             url: searchUV,
