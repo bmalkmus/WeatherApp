@@ -25,7 +25,7 @@ function successFunction(position) {
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
     let loadCurrent = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&units=imperial&appid=945dc48fe14dbea48344eae4427f193e";
-    let CurrentUV = "http://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long
+    let CurrentUV = "https://api.openweathermap.org/data/2.5/uvi?appid=945dc48fe14dbea48344eae4427f193e&lat="+lat+"&lon="+long
     $.ajax({
         url: loadCurrent,
         method: "GET"
