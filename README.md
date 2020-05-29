@@ -14,3 +14,6 @@ I would like to thank of all my teachers and TAs at University of Washington's C
 
 ## Deployment
 https://bmalkmus.github.io/WeatherApp/
+
+## Screenshot
+![Screenshot](WeatherApp.png)
